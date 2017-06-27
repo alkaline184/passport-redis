@@ -2,7 +2,8 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Redis = require('ioredis');
-var redis = new Redis();
+var host = process.env.REDIS_URL || "127.0.0.1"
+var redis = new Redis(6379, host);
 const port = process.env.PORT || 8080;
 
 redis.subscribe('factories', function(err, count) {
